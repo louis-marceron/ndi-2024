@@ -926,6 +926,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6186797620658329413, guid: fffe6b43777c74dadae5e9acb6eb4b4e, type: 3}
   m_PrefabInstance: {fileID: 717609393}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &735463179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 735463180}
+  - component: {fileID: 735463181}
+  m_Layer: 0
+  m_Name: CoinArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &735463180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735463179}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1630808140}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &735463181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735463179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b6d171cbfb61461a8f9643bc36f473d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x_ellipse: 4
+  y_ellipse: 5
+  prefab: {fileID: 3418351666737640693, guid: 68e5c9a7541ee41ae8d4f084ed7ac531, type: 3}
+  duration: 2
+  forceAmount: 5
 --- !u!1 &736268530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,6 +1632,7 @@ Transform:
   m_Children:
   - {fileID: 736268531}
   - {fileID: 250509994}
+  - {fileID: 735463180}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1636473050
@@ -2053,9 +2103,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3097469}
-        m_TargetAssemblyTypeName: ValTest, Assembly-CSharp
-        m_MethodName: spawnBoat1
+      - m_Target: {fileID: 735463181}
+        m_TargetAssemblyTypeName: CoinArea, Assembly-CSharp
+        m_MethodName: InstantiatePrefabAtRandomPosition
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
