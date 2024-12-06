@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class GameManager : MonoBehaviour
     public Button boatButton;
     public Button factoryButton;
     public Button storeButton;
+    public Button fishmanUpgradeButton;
+    public Button boatUpgradeButton;
+    public Button factoryUpgradeButton;
+    public Button storeUpgradeButton;
 
     void Awake()
     {
@@ -56,30 +61,38 @@ public class GameManager : MonoBehaviour
         boatButton.onClick.AddListener(() => BuyObject(boat));
         factoryButton.onClick.AddListener(() => BuyObject(factory));
         storeButton.onClick.AddListener(() => BuyObject(store));
+        fishmanUpgradeButton.onClick.AddListener(() => UpgradeObject(fisherman));
+        boatUpgradeButton.onClick.AddListener(() => UpgradeObject(boat));
+        factoryUpgradeButton.onClick.AddListener(() => UpgradeObject(factory));
+        storeUpgradeButton.onClick.AddListener(() => UpgradeObject(store));
     }
 
     void Update()
     {
         // Mise à jour de l'argent
         Money += IncomePerSecond() * Time.deltaTime;
-        moneyText.text = "Money : " + Money.ToString("F2") + "$";
-        incomeText.text = "Income : " + IncomePerSecond() + "$/s";
-        fishermanText.text = "Fisherman : " + fisherman.Quantity + " (+" + fisherman.RevenuPerSecond + "$/c)" + " (cost: " + fisherman.GetCost() + "$)";
-        boatText.text = "Boat : " + boat.Quantity + " (+" + boat.RevenuPerSecond + "$/s)" + " (cost: " + boat.GetCost() + "$)";
-        factoryText.text = "Factory : " + factory.Quantity + " (+" + factory.RevenuPerSecond + "$/s)" + " (cost: " + factory.GetCost() + "$)";
-        storeText.text = "Store : " + store.Quantity + " (+" + store.RevenuPerSecond + "$/s)" + " (cost: " + store.GetCost() + "$)";
+        moneyText.text = "Argent : " + Math.Round(Money).ToString() + "$";
+        incomeText.text = "Revenue : " + IncomePerSecond() + "$/sec";
+        fishermanText.text = "Pêcheur : " + fisherman.Quantity + " (+" + fisherman.RevenuPerSecond + "$/click)" + " (cout: " + fisherman.GetCost() + "$)" + " (efficacité: " + fisherman.Efficiency*100 + "%)";
+        boatText.text = "Bateau : " + boat.Quantity + " (+" + boat.RevenuPerSecond + "$/sec)" + " (cout: " + boat.GetCost() + "$)" + " (efficacité: " + boat.Efficiency*100 + "%)";
+        factoryText.text = "Usine : " + factory.Quantity + " (+" + factory.RevenuPerSecond + "$/sec)" + " (cout: " + factory.GetCost() + "$)" + " (efficacité: " + factory.Efficiency*100 + "%)";
+        storeText.text = "Magasin : " + store.Quantity + " (+" + store.RevenuPerSecond + "$/sec)" + " (cout: " + store.GetCost() + "$)" + " (efficacité: " + store.Efficiency*100 + "%)";
+        fishmanUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (cout: " + fisherman.GetUpgradeCost() + "$)";
+        boatUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (cout: " + boat.GetUpgradeCost() + "$)";
+        factoryUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (cout: " + factory.GetUpgradeCost() + "$)";
+        storeUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (cout: " + store.GetUpgradeCost() + "$)";
     }
 
     // Méthode pour gérer l'argent
     public int IncomePerSecond()
     {
-        return boat.RevenuPerSecond * boat.Quantity + factory.RevenuPerSecond * factory.Quantity + store.RevenuPerSecond * store.Quantity;
+        return boat.IncomePerSecond + factory.IncomePerSecond + store.IncomePerSecond;
     }
 
     // Méthode pour gérer un clic
     public int Click()
     {
-        return fisherman.RevenuPerSecond * fisherman.Quantity;
+        return fisherman.IncomePerSecond;
     }
 
     // Méthode pour acheter un objet
@@ -89,6 +102,16 @@ public class GameManager : MonoBehaviour
         {
             Money -= obj.GetCost();
             obj.BuyObject();
+        }
+    }
+
+    // Méthode pour améliorer un objet
+    public void UpgradeObject(Item obj)
+    {
+        if (Money >= obj.GetUpgradeCost())
+        {
+            Money -= obj.GetUpgradeCost();
+            obj.UpgradeObject();
         }
     }
 }
