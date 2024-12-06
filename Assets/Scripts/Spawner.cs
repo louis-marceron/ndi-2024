@@ -7,14 +7,21 @@ public class Spawner : MonoBehaviour
     public CheckpointType checkpointType;
     public Checkpoint nextCheckpoint;
     public GameObject prefab;
-    public int spawnRate;
+    public float spawnRate;
+    public float currentSpawnRate;
 
     private Coroutine spawnCoroutine;
 
     private void Start()
     {
+        currentSpawnRate = spawnRate;
         // Start the spawning process
         StartSpawning();
+    }
+
+    private void Update()
+    {
+        currentSpawnRate = spawnRate / (GameManager.Instance.boat.Quantity/4.0f + GameManager.Instance.boat.Efficiency/2.0f);
     }
 
     private void StartSpawning()
@@ -31,7 +38,7 @@ public class Spawner : MonoBehaviour
         while (true) // Continue spawning indefinitely
         {
             SpawnPrefab();
-            yield return new WaitForSeconds(1f / spawnRate); // Wait for the time defined by spawnRate
+            yield return new WaitForSeconds(1f / currentSpawnRate); // Wait for the time defined by spawnRate
         }
     }
 

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     // Singleton Instance
     public static GameManager Instance { get; private set; }
 
-    // Propriétés de base
+    // Propri?t?s de base
     public float Money;
     public Item fisherman; // Reference to the Item
     public Item boat; // Reference to the Item
@@ -37,16 +37,16 @@ public class GameManager : MonoBehaviour
         // Singleton setup
         if (Instance == null)
         {
-            Instance = this; // Définir l'instance
-            DontDestroyOnLoad(gameObject); // Ne pas détruire entre les scènes
+            Instance = this; // D?finir l'instance
+            DontDestroyOnLoad(gameObject); // Ne pas d?truire entre les sc?nes
         }
         else
         {
-            Destroy(gameObject); // Détruire les duplicatas
+            Destroy(gameObject); // D?truire les duplicatas
         }
     }
 
-    // Constructeur : Initialise les valeurs par défaut
+    // Constructeur : Initialise les valeurs par d?faut
     void Start()
     {
         Money = 0;
@@ -69,18 +69,18 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // Mise à jour de l'argent
+        // Mise ? jour de l'argent
         Money += IncomePerSecond() * Time.deltaTime;
-        moneyText.text = "Argent : " + Math.Round(Money).ToString() + "€";
-        incomeText.text = "Revenu : " + IncomePerSecond() + "€/sec";
-        fishermanText.text = "Pêcheur : " + fisherman.Quantity + " (+" + fisherman.RevenuPerSecond + "€/click)" + " (coût: " + fisherman.GetCost() + "€)" + " (efficacité: " + fisherman.Efficiency*100 + "%)";
-        boatText.text = "Bateau : " + boat.Quantity + " (+" + boat.RevenuPerSecond + "€/sec)" + " (coût: " + boat.GetCost() + "€)" + " (efficacité: " + boat.Efficiency*100 + "%)";
-        factoryText.text = "Usine : " + factory.Quantity + " (+" + factory.RevenuPerSecond + "€/sec)" + " (coût: " + factory.GetCost() + "€)" + " (efficacité: " + factory.Efficiency*100 + "%)";
-        storeText.text = "Magasin : " + store.Quantity + " (+" + store.RevenuPerSecond + "€/sec)" + " (coût: " + store.GetCost() + "€)" + " (efficacité: " + store.Efficiency*100 + "%)";
-        fishmanUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (coût: " + fisherman.GetUpgradeCost() + "€)";
-        boatUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (coût: " + boat.GetUpgradeCost() + "€)";
-        factoryUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (coût: " + factory.GetUpgradeCost() + "€)";
-        storeUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (coût: " + store.GetUpgradeCost() + "€)";
+        moneyText.text = "Argent : " + Math.Round(Money).ToString() + "Euros";
+        incomeText.text = "Revenu : " + IncomePerSecond() + "Euros/sec";
+        fishermanText.text = "Pecheur : " + fisherman.Quantity + " (+" + fisherman.RevenuPerSecond + "Euros/click)" + " (cout: " + fisherman.GetCost() + "Euros)" + " (efficacite: " + fisherman.Efficiency*100 + "%)";
+        boatText.text = "Bateau : " + boat.Quantity + " (+" + boat.RevenuPerSecond + "Euros/sec)" + " (cout: " + boat.GetCost() + "Euros)" + " (efficacite: " + boat.Efficiency*100 + "%)";
+        factoryText.text = "Usine : " + factory.Quantity + " (+" + factory.RevenuPerSecond + "Euros/sec)" + " (cout: " + factory.GetCost() + "Euros)" + " (efficacite: " + factory.Efficiency*100 + "%)";
+        storeText.text = "Magasin : " + store.Quantity + " (+" + store.RevenuPerSecond + "Euros/sec)" + " (cout: " + store.GetCost() + "Euros)" + " (efficacite: " + store.Efficiency*100 + "%)";
+        fishmanUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Ameliorer (cout: " + fisherman.GetUpgradeCost() + "Euros)";
+        boatUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Ameliorer (cout: " + boat.GetUpgradeCost() + "Euros)";
+        factoryUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Ameliorer (cout: " + factory.GetUpgradeCost() + "Euros)";
+        storeUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Ameliorer (cout: " + store.GetUpgradeCost() + "Euros)";
 
         if (fisherman.GetUpgradeCost() > Money) DisableButton(fishmanUpgradeButton);
         if (boat.GetUpgradeCost() > Money) DisableButton(boatUpgradeButton);
@@ -101,19 +101,19 @@ public class GameManager : MonoBehaviour
         if (store.GetCost() <= Money) EnableButton(storeButton);
     }
 
-    // Méthode pour gérer l'argent
+    // M?thode pour g?rer l'argent
     public int IncomePerSecond()
     {
         return boat.IncomePerSecond + factory.IncomePerSecond + store.IncomePerSecond;
     }
 
-    // Méthode pour gérer un clic
+    // M?thode pour g?rer un clic
     public int Click()
     {
         return fisherman.IncomePerSecond;
     }
 
-    // Méthode pour acheter un objet
+    // M?thode pour acheter un objet
     public void BuyObject(Item obj)
     {
         if (Money >= obj.GetCost())
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Méthode pour améliorer un objet
+    // M?thode pour am?liorer un objet
     public void UpgradeObject(Item obj)
     {
         if (Money >= obj.GetUpgradeCost())

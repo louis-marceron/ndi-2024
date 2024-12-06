@@ -4,7 +4,7 @@ public class Spawned : MonoBehaviour
 {
     public Checkpoint nextCheckpoint; // The current target checkpoint
     public float speed = 5f; // Movement speed
-    public float checkpointProximityThreshold = 0.2f; // Distance to consider "reaching" the checkpoint
+    public float checkpointProximityThreshold = 0.02f; // Distance to consider "reaching" the checkpoint
 
     private void Update()
     {
