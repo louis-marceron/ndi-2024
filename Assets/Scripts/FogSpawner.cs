@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class FogSpawner : MonoBehaviour
 {
-    public GameObject fogPrefab;         // Fog prefab to spawn
+    public GameObject fogPrefab1;
+    public GameObject fogPrefab2;
+    public GameObject fogPrefab3;
     public float coneAngle = 45f;        // Angle of the cone (in degrees)
     public float coneRange = 10f;        // Maximum range (distance) for fog to move
     public float spawnRate = 0.1f;      // Time interval for spawning fog
@@ -27,8 +29,11 @@ public class FogSpawner : MonoBehaviour
         // Spawn the fog at the spawner's position
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y, -1);
 
+        // Select a random fog prefab from the three
+        GameObject selectedFogPrefab = GetRandomFogPrefab();
+
         // Instantiate the fog prefab at the starting position
-        GameObject fog = Instantiate(fogPrefab, spawnPosition, Quaternion.identity);
+        GameObject fog = Instantiate(selectedFogPrefab, spawnPosition, Quaternion.identity);
 
         // Calculate a random direction vector within the cone
         Vector2 randomDirection = GetRandomDirectionInCone();
@@ -58,6 +63,18 @@ public class FogSpawner : MonoBehaviour
 
         // Normalize the direction to make sure all fog particles move at the same speed
         return direction.normalized;
+    }
+
+    private GameObject GetRandomFogPrefab()
+    {
+        int randomIndex = Random.Range(0, 3); // Random index between 0 (inclusive) and 3 (exclusive)
+        switch (randomIndex)
+        {
+            case 0: return fogPrefab1;
+            case 1: return fogPrefab2;
+            case 2: return fogPrefab3;
+            default: return fogPrefab1; // Default case, though it won't be hit
+        }
     }
 
     // Draw the Gizmo for the cone in the Scene view
