@@ -10,10 +10,14 @@ public class GameManager : MonoBehaviour
 
     // Propri?t?s de base
     public float Money;
+    public float TotalMoney;
     public Item fisherman; // Reference to the Item
     public Item boat; // Reference to the Item
     public Item factory; // Reference to the Item
     public Item store; // Reference to the Item
+    public SpriteRenderer head;
+    public Sprite head1;
+    public Sprite head2;
 
     // Reference to the UI
     public TMP_Text moneyText;
@@ -56,7 +60,12 @@ public class GameManager : MonoBehaviour
         store = new Item(0, 100, 10); // Valeur par seconde
 
         // Initialisation des boutons
-        clickButton.onClick.AddListener(() => Money += Click());
+        clickButton.onClick.AddListener(() =>
+        {
+            int clickValue = Click(); // Call Click() once and store the result
+            Money += clickValue;
+            TotalMoney += clickValue;
+        });
         fishermanButton.onClick.AddListener(() => BuyObject(fisherman));
         boatButton.onClick.AddListener(() => BuyObject(boat));
         factoryButton.onClick.AddListener(() => BuyObject(factory));
@@ -71,8 +80,9 @@ public class GameManager : MonoBehaviour
     {
         // Mise ? jour de l'argent
         Money += IncomePerSecond() * Time.deltaTime;
-        moneyText.text = "Argent : " + Math.Round(Money).ToString() + "Euros";
-        incomeText.text = "Revenu : " + IncomePerSecond() + "Euros/sec";
+        TotalMoney += IncomePerSecond() * Time.deltaTime;
+        moneyText.text = Math.Round(Money).ToString() + " Euros";
+        incomeText.text = IncomePerSecond() + " Euros/sec";
         fishermanText.text = "Pecheur : " + fisherman.Quantity + " (+" + fisherman.RevenuPerSecond + "Euros/click)" + " (cout: " + fisherman.GetCost() + "Euros)" + " (efficacite: " + fisherman.Efficiency*100 + "%)";
         boatText.text = "Bateau : " + boat.Quantity + " (+" + boat.RevenuPerSecond + "Euros/sec)" + " (cout: " + boat.GetCost() + "Euros)" + " (efficacite: " + boat.Efficiency*100 + "%)";
         factoryText.text = "Usine : " + factory.Quantity + " (+" + factory.RevenuPerSecond + "Euros/sec)" + " (cout: " + factory.GetCost() + "Euros)" + " (efficacite: " + factory.Efficiency*100 + "%)";
@@ -99,6 +109,22 @@ public class GameManager : MonoBehaviour
         if (boat.GetCost() <= Money) EnableButton(boatButton);
         if (factory.GetCost() <= Money) EnableButton(factoryButton);
         if (store.GetCost() <= Money) EnableButton(storeButton);
+
+        if (TotalMoney >= 5000)
+        {
+            head.sprite = head1;
+        }
+
+        if (TotalMoney >= 20000)
+        {
+            head.sprite = head2;
+        }
+
+        if (TotalMoney >= 40000)
+        {
+            Debug.Log("GameOver");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScene");
+        }
     }
 
     // M?thode pour g?rer l'argent

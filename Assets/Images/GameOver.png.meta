@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 42c6d5da5116847e799388429da139c3
+guid: 6b0ff3f5d361f4ff9b87b02ed0d473ce
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2365659144287247064
-    second: SadFace_0
+      213: -6899527831451061053
+    second: GameOver_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 280
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SadFace_0
+      name: GameOver_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 3
-        width: 295
-        height: 335
+        x: 0
+        y: 0
+        width: 1070
+        height: 752
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 825aa15ca8d7b2fd0800000000000000
-      internalID: -2365659144287247064
+      spriteID: 3c430781ef3ff30a0800000000000000
+      internalID: -6899527831451061053
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      SadFace_0: -2365659144287247064
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
