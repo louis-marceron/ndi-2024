@@ -71,16 +71,34 @@ public class GameManager : MonoBehaviour
     {
         // Mise à jour de l'argent
         Money += IncomePerSecond() * Time.deltaTime;
-        moneyText.text = "Argent : " + Math.Round(Money).ToString() + "$";
-        incomeText.text = "Revenue : " + IncomePerSecond() + "$/sec";
-        fishermanText.text = "Pêcheur : " + fisherman.Quantity + " (+" + fisherman.RevenuPerSecond + "$/click)" + " (cout: " + fisherman.GetCost() + "$)" + " (efficacité: " + fisherman.Efficiency*100 + "%)";
-        boatText.text = "Bateau : " + boat.Quantity + " (+" + boat.RevenuPerSecond + "$/sec)" + " (cout: " + boat.GetCost() + "$)" + " (efficacité: " + boat.Efficiency*100 + "%)";
-        factoryText.text = "Usine : " + factory.Quantity + " (+" + factory.RevenuPerSecond + "$/sec)" + " (cout: " + factory.GetCost() + "$)" + " (efficacité: " + factory.Efficiency*100 + "%)";
-        storeText.text = "Magasin : " + store.Quantity + " (+" + store.RevenuPerSecond + "$/sec)" + " (cout: " + store.GetCost() + "$)" + " (efficacité: " + store.Efficiency*100 + "%)";
-        fishmanUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (cout: " + fisherman.GetUpgradeCost() + "$)";
-        boatUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (cout: " + boat.GetUpgradeCost() + "$)";
-        factoryUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (cout: " + factory.GetUpgradeCost() + "$)";
-        storeUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (cout: " + store.GetUpgradeCost() + "$)";
+        moneyText.text = "Argent : " + Math.Round(Money).ToString() + "€";
+        incomeText.text = "Revenu : " + IncomePerSecond() + "€/sec";
+        fishermanText.text = "Pêcheur : " + fisherman.Quantity + " (+" + fisherman.RevenuPerSecond + "€/click)" + " (coût: " + fisherman.GetCost() + "€)" + " (efficacité: " + fisherman.Efficiency*100 + "%)";
+        boatText.text = "Bateau : " + boat.Quantity + " (+" + boat.RevenuPerSecond + "€/sec)" + " (coût: " + boat.GetCost() + "€)" + " (efficacité: " + boat.Efficiency*100 + "%)";
+        factoryText.text = "Usine : " + factory.Quantity + " (+" + factory.RevenuPerSecond + "€/sec)" + " (coût: " + factory.GetCost() + "€)" + " (efficacité: " + factory.Efficiency*100 + "%)";
+        storeText.text = "Magasin : " + store.Quantity + " (+" + store.RevenuPerSecond + "€/sec)" + " (coût: " + store.GetCost() + "€)" + " (efficacité: " + store.Efficiency*100 + "%)";
+        fishmanUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (coût: " + fisherman.GetUpgradeCost() + "€)";
+        boatUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (coût: " + boat.GetUpgradeCost() + "€)";
+        factoryUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (coût: " + factory.GetUpgradeCost() + "€)";
+        storeUpgradeButton.GetComponentInChildren<TMP_Text>().text = "Améliorer (coût: " + store.GetUpgradeCost() + "€)";
+
+        if (fisherman.GetUpgradeCost() > Money) DisableButton(fishmanUpgradeButton);
+        if (boat.GetUpgradeCost() > Money) DisableButton(boatUpgradeButton);
+        if (factory.GetUpgradeCost() > Money) DisableButton(factoryUpgradeButton);
+        if (store.GetUpgradeCost() > Money) DisableButton(storeUpgradeButton);
+        if (fisherman.GetCost() > Money) DisableButton(fishermanButton);
+        if (boat.GetCost() > Money) DisableButton(boatButton);
+        if (factory.GetCost() > Money) DisableButton(factoryButton);
+        if (store.GetCost() > Money) DisableButton(storeButton);
+
+        if (fisherman.GetUpgradeCost() <= Money) EnableButton(fishmanUpgradeButton);
+        if (boat.GetUpgradeCost() <= Money) EnableButton(boatUpgradeButton);
+        if (factory.GetUpgradeCost() <= Money) EnableButton(factoryUpgradeButton);
+        if (store.GetUpgradeCost() <= Money) EnableButton(storeUpgradeButton);
+        if (fisherman.GetCost() <= Money) EnableButton(fishermanButton);
+        if (boat.GetCost() <= Money) EnableButton(boatButton);
+        if (factory.GetCost() <= Money) EnableButton(factoryButton);
+        if (store.GetCost() <= Money) EnableButton(storeButton);
     }
 
     // Méthode pour gérer l'argent
@@ -113,5 +131,15 @@ public class GameManager : MonoBehaviour
             Money -= obj.GetUpgradeCost();
             obj.UpgradeObject();
         }
+    }
+
+    public void DisableButton(Button button)
+    {
+        button.interactable = false;
+    }
+
+    public void EnableButton(Button button)
+    {
+        button.interactable = true;
     }
 }
